@@ -6,8 +6,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ArrowRight, CheckCircle2, AlertCircle, Mail } from 'lucide-react';
-import { db } from './firebase';
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*\.[a-zA-Z]{2,}$/;
 
@@ -42,17 +40,11 @@ export default function App() {
     setIsLoading(true);
 
     try {
-      await Promise.all([
-        addDoc(collection(db, 'leads'), {
-          email: email.trim().toLowerCase(),
-          createdAt: serverTimestamp(),
-        }),
-        fetch('https://services.leadconnectorhq.com/hooks/eGMcJ5uiCn23PTvKzhM6/webhook-trigger/28744af6-11a8-4f7f-924f-661446c5bc38', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email: email.trim().toLowerCase() }),
-        }),
-      ]);
+      await fetch('https://services.leadconnectorhq.com/hooks/eGMcJ5uiCn23PTvKzhM6/webhook-trigger/28744af6-11a8-4f7f-924f-661446c5bc38', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email.trim().toLowerCase() }),
+      });
       setIsSubmitted(true);
       setEmail('');
     } catch (err) {
