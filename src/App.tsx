@@ -18,7 +18,7 @@ const INITIAL_CLAIMED = 68;
 const INITIAL_WAITLIST = 247;
 
 const perks = [
-  { icon: Tag, label: 'Founding member rates' },
+  { icon: Tag, label: 'Founding member access' },
   { icon: Clock, label: 'Priority booking' },
   { icon: Zap, label: 'Exclusive launch events' },
 ];
@@ -149,7 +149,7 @@ export default function App() {
                     You're on the list.
                   </h3>
                   <p className="text-white/40 text-sm font-light leading-relaxed">
-                    Your founding member spot is reserved. We'll be in touch with priority booking access, exclusive rates, and launch details before anyone else.
+                    Your founding member spot is reserved. We'll be in touch with priority booking access and launch details before anyone else.
                   </p>
                 </div>
                 <button
@@ -340,7 +340,7 @@ export default function App() {
             <p className="text-white/35 text-xs font-light text-left">
               Only{' '}
               <span className="text-white/65">{TOTAL_SPOTS - INITIAL_CLAIMED} spots remaining</span>
-              {' '}— founding members receive discounted rates for life.
+              {' '}— secure your spot before we open to the public.
             </p>
           </div>
         </motion.div>
