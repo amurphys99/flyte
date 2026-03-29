@@ -167,14 +167,14 @@ export default function App() {
       {grainOverlay}
       {backgroundGradients}
 
-      <div className="flex-1 flex flex-col items-center justify-center w-full max-w-2xl text-center z-10 py-16 md:py-24">
+      <div className="flex-1 flex flex-col items-center justify-center w-full max-w-2xl text-center z-10 py-12 md:py-20">
 
         {/* Wordmark */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, ease: 'easeOut' }}
-          className="mb-10 md:mb-14"
+          className="mb-6 md:mb-8"
         >
           <h1 className="text-6xl sm:text-7xl md:text-8xl font-light tracking-[0.3em] text-white uppercase">
             Flyte
@@ -193,7 +193,7 @@ export default function App() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
-          className="space-y-4 mb-8 md:mb-10"
+          className="space-y-3 mb-8 md:mb-10"
         >
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-light text-white/90 leading-snug">
             Cork's Only 5-Bay<br />TrackMan Facility.
@@ -203,123 +203,13 @@ export default function App() {
           </p>
         </motion.div>
 
-        {/* Location Badge */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.4 }}
-          className="mb-10 md:mb-12"
-        >
-          <span className="px-5 py-2 rounded-full border border-white/20 text-white/50 text-xs sm:text-sm tracking-widest uppercase font-light">
-            Cork City, Ireland
-          </span>
-        </motion.div>
-
-        {/* Perks */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.5, ease: 'easeOut' }}
-          className="w-full max-w-md mb-8 md:mb-10"
-        >
-          {/* Mobile: horizontal pill list */}
-          <div className="flex flex-col items-center gap-2 sm:hidden">
-            {perks.map(({ icon: Icon, label }, i) => (
-              <motion.div
-                key={label}
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, delay: 0.55 + i * 0.1 }}
-                className="flex items-center gap-2.5"
-              >
-                <Icon className="w-3.5 h-3.5 text-white/40 shrink-0" />
-                <span className="text-white/55 text-sm font-light">{label}</span>
-              </motion.div>
-            ))}
-          </div>
-
-          {/* sm+: cards grid */}
-          <div className="hidden sm:grid grid-cols-3 gap-3">
-            {perks.map(({ icon: Icon, label }, i) => (
-              <motion.div
-                key={label}
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.55 + i * 0.1 }}
-                className="flex flex-col items-center gap-2 px-3 py-4 rounded-2xl bg-white/[0.04] border border-white/[0.08]"
-              >
-                <Icon className="w-4 h-4 text-white/50" />
-                <span className="text-white/60 text-xs font-light leading-snug text-center">{label}</span>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* Social proof + Spots counter */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.65 }}
-          className="w-full max-w-md mb-10 md:mb-12 space-y-4"
-        >
-          {/* Social proof */}
-          <div className="flex items-center justify-center gap-2">
-            <Users className="w-3.5 h-3.5 text-white/30 shrink-0" />
-            <p className="text-white/40 text-sm font-light">
-              <AnimatePresence mode="wait">
-                <motion.span
-                  key={waitlistCount}
-                  initial={{ opacity: 0, y: -5 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 5 }}
-                  transition={{ duration: 0.3 }}
-                  className="text-white/70 font-normal"
-                >
-                  {waitlistCount.toLocaleString()}
-                </motion.span>
-              </AnimatePresence>
-              {' '}Cork golfers already on the waitlist
-            </p>
-          </div>
-
-          {/* Founding spots progress bar */}
-          <div className="px-5 py-4 rounded-2xl bg-white/[0.04] border border-white/[0.08] space-y-3">
-            <div className="flex justify-between items-center">
-              <span className="text-white/55 text-xs font-light tracking-wide">Founding member spots</span>
-              <span className="text-white/45 text-xs font-light">
-                <span className="text-white/80 font-normal">{INITIAL_CLAIMED}</span>
-                {' '}/ {TOTAL_SPOTS} claimed
-              </span>
-            </div>
-            <div className="w-full h-1 bg-white/[0.08] rounded-full overflow-hidden">
-              <motion.div
-                initial={{ width: 0 }}
-                animate={{ width: `${claimedPct}%` }}
-                transition={{ duration: 1.4, delay: 0.9, ease: 'easeOut' }}
-                className="h-full bg-white/55 rounded-full"
-              />
-            </div>
-            <p className="text-white/35 text-xs font-light text-left">
-              Only{' '}
-              <span className="text-white/65">{TOTAL_SPOTS - INITIAL_CLAIMED} spots remaining</span>
-              {' '}— founding members receive discounted rates for life.
-            </p>
-          </div>
-        </motion.div>
-
-        {/* Email Capture */}
+        {/* Email Capture — above the fold */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.8, ease: 'easeOut' }}
-          className="w-full max-w-md px-2 sm:px-0"
+          transition={{ duration: 0.8, delay: 0.35, ease: 'easeOut' }}
+          className="w-full max-w-md px-2 sm:px-0 mb-10 md:mb-14"
         >
-          <p className="text-white/40 text-sm font-light mb-4 leading-relaxed">
-            Founding members get{' '}
-            <span className="text-white/70">priority booking</span> and{' '}
-            <span className="text-white/70">exclusive rates</span> — limited spots available.
-          </p>
-
           <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-3">
             <div
               className={`flex flex-col sm:flex-row items-stretch gap-2 p-1.5 bg-white/[0.03] border rounded-[20px] backdrop-blur-md transition-all duration-500 ${
@@ -390,6 +280,122 @@ export default function App() {
             </p>
           </form>
         </motion.div>
+
+        {/* Divider */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 0.5 }}
+          className="w-full max-w-md h-px bg-white/[0.06] mb-10 md:mb-14"
+        />
+
+        {/* Social proof */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.55 }}
+          className="flex items-center justify-center gap-2 mb-6"
+        >
+          <Users className="w-3.5 h-3.5 text-white/30 shrink-0" />
+          <p className="text-white/40 text-sm font-light">
+            <AnimatePresence mode="wait">
+              <motion.span
+                key={waitlistCount}
+                initial={{ opacity: 0, y: -5 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 5 }}
+                transition={{ duration: 0.3 }}
+                className="text-white/70 font-normal"
+              >
+                {waitlistCount.toLocaleString()}
+              </motion.span>
+            </AnimatePresence>
+            {' '}Cork golfers already on the waitlist
+          </p>
+        </motion.div>
+
+        {/* Founding spots progress bar */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+          className="w-full max-w-md mb-8 md:mb-10"
+        >
+          <div className="px-5 py-4 rounded-2xl bg-white/[0.04] border border-white/[0.08] space-y-3">
+            <div className="flex justify-between items-center">
+              <span className="text-white/55 text-xs font-light tracking-wide">Founding member spots</span>
+              <span className="text-white/45 text-xs font-light">
+                <span className="text-white/80 font-normal">{INITIAL_CLAIMED}</span>
+                {' '}/ {TOTAL_SPOTS} claimed
+              </span>
+            </div>
+            <div className="w-full h-1 bg-white/[0.08] rounded-full overflow-hidden">
+              <motion.div
+                initial={{ width: 0 }}
+                animate={{ width: `${claimedPct}%` }}
+                transition={{ duration: 1.4, delay: 0.9, ease: 'easeOut' }}
+                className="h-full bg-white/55 rounded-full"
+              />
+            </div>
+            <p className="text-white/35 text-xs font-light text-left">
+              Only{' '}
+              <span className="text-white/65">{TOTAL_SPOTS - INITIAL_CLAIMED} spots remaining</span>
+              {' '}— founding members receive discounted rates for life.
+            </p>
+          </div>
+        </motion.div>
+
+        {/* Perks */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.65, ease: 'easeOut' }}
+          className="w-full max-w-md mb-8"
+        >
+          {/* Mobile */}
+          <div className="flex flex-col items-center gap-2 sm:hidden">
+            {perks.map(({ icon: Icon, label }, i) => (
+              <motion.div
+                key={label}
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: 0.7 + i * 0.1 }}
+                className="flex items-center gap-2.5"
+              >
+                <Icon className="w-3.5 h-3.5 text-white/40 shrink-0" />
+                <span className="text-white/55 text-sm font-light">{label}</span>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* sm+ */}
+          <div className="hidden sm:grid grid-cols-3 gap-3">
+            {perks.map(({ icon: Icon, label }, i) => (
+              <motion.div
+                key={label}
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.7 + i * 0.1 }}
+                className="flex flex-col items-center gap-2 px-3 py-4 rounded-2xl bg-white/[0.04] border border-white/[0.08]"
+              >
+                <Icon className="w-4 h-4 text-white/50" />
+                <span className="text-white/60 text-xs font-light leading-snug text-center">{label}</span>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Location Badge */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 0.8 }}
+        >
+          <span className="px-5 py-2 rounded-full border border-white/20 text-white/50 text-xs sm:text-sm tracking-widest uppercase font-light">
+            Cork City, Ireland
+          </span>
+        </motion.div>
+
       </div>
 
       {/* Footer */}
