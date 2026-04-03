@@ -243,7 +243,7 @@ export default function App() {
         className="pb-10 flex items-center gap-6 text-white/20 text-xs tracking-[0.2em] uppercase font-light z-10"
       >
         <span>© Flyte Golf</span>
-        <a href="/privacy" className="hover:text-white/40 transition-colors">Privacy Policy</a>
+        <a href="https://docs.google.com/document/d/1rhzfKHtZcW8_5YgbLqBpqF7rIijqFzltusF3wZPEriw/view" target="_blank" rel="noopener noreferrer" className="hover:text-white/40 transition-colors">Privacy Policy</a>
       </motion.footer>
     </main>
     </>
