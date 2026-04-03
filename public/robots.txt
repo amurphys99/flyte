@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://flytegolf.ie/sitemap.xml
+Sitemap: https://www.flytegolf.ie/sitemap.xml
