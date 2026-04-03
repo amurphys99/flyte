@@ -128,8 +128,9 @@ export default function App() {
             <img
               src="/trackman-logo.png"
               alt="TrackMan"
-              className="inline-block h-52 sm:h-56 md:h-60 w-auto align-middle mix-blend-lighten -my-16 sm:-my-20 translate-y-3 mr-2"
-            />{' '}Facility.
+              className="inline-block h-52 sm:h-56 md:h-60 w-auto mix-blend-lighten -my-16 sm:-my-20"
+            /><br />
+            Facility.
           </h2>
           <p className="text-base sm:text-lg text-white/50 font-light leading-relaxed max-w-md mx-auto">
             Play on tour-grade technology — five simulators, one world-class venue. Coming soon to Cork City.
