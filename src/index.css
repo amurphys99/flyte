@@ -13,11 +13,6 @@
   }
 }
 
-.klaviyo-form-WNgWZF > div {
-  border-radius: 24px !important;
-  overflow: hidden !important;
-}
-
 @keyframes shimmer {
   0% { background-position: -200% center; }
   100% { background-position: 200% center; }
