@@ -61,7 +61,14 @@ export default function App() {
   }, []);
 
   return (
-    <main className="min-h-screen flex flex-col items-center px-6 relative overflow-x-hidden bg-[#050505]">
+    <>
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-white focus:text-black focus:rounded focus:outline-none"
+      >
+        Skip to main content
+      </a>
+      <main id="main-content" className="min-h-screen flex flex-col items-center px-6 relative overflow-x-hidden bg-[#050505]">
       {grainOverlay}
       {backgroundGradients}
 
@@ -238,5 +245,6 @@ export default function App() {
         © Flyte Golf
       </motion.footer>
     </main>
+    </>
   );
 }
