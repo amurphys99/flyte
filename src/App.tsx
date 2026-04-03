@@ -123,14 +123,13 @@ export default function App() {
           transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
           className="space-y-3 mb-8 md:mb-10"
         >
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-light text-white/90 leading-tight">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-light text-white/90 leading-snug">
             Cork's Only 5-Bay<br />
             <img
-              src="/trackman-logo.png"
+              src="/trackman-logo-cropped.png"
               alt="TrackMan"
-              className="inline-block h-52 sm:h-56 md:h-60 w-auto mix-blend-lighten -my-20 sm:-my-24"
-            /><br />
-            Facility.
+              className="inline-block h-5 sm:h-6 md:h-7 w-auto align-middle mix-blend-lighten mr-2 translate-y-[-1px]"
+            />Facility.
           </h2>
           <p className="text-base sm:text-lg text-white/50 font-light leading-relaxed max-w-md mx-auto">
             Play on tour-grade technology — five simulators, one world-class venue. Coming soon to Cork City.
