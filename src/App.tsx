@@ -128,7 +128,7 @@ export default function App() {
             <img
               src="/trackman-logo-cropped.png"
               alt="TrackMan"
-              className="inline-block h-5 sm:h-6 md:h-7 w-auto align-middle mix-blend-lighten mr-2 translate-y-[-1px]"
+              className="inline-block h-5 sm:h-6 md:h-7 w-auto align-middle mix-blend-lighten mr-4 translate-y-[-1px]"
             />Facility.
           </h2>
           <p className="text-base sm:text-lg text-white/50 font-light leading-relaxed max-w-md mx-auto">
