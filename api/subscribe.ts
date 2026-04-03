@@ -84,7 +84,7 @@ export default async function handler(req: Request): Promise<Response> {
   if (klaviyoRes.status !== 202) {
     const errorText = await klaviyoRes.text();
     console.error('Klaviyo error:', klaviyoRes.status, errorText);
-    return new Response(JSON.stringify({ error: 'Failed to subscribe' }), {
+    return new Response(JSON.stringify({ error: 'Failed to subscribe', detail: errorText, status: klaviyoRes.status }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' },
     });
