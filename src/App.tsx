@@ -48,8 +48,12 @@ const backgroundGradients = (
   </div>
 );
 
+type FormStatus = 'idle' | 'loading' | 'success' | 'error';
+
 export default function App() {
   const [waitlistCount, setWaitlistCount] = useState(INITIAL_WAITLIST);
+  const [email, setEmail] = useState('');
+  const [formStatus, setFormStatus] = useState<FormStatus>('idle');
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -59,6 +63,23 @@ export default function App() {
     }, 28000);
     return () => clearInterval(interval);
   }, []);
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setFormStatus('loading');
+    try {
+      const res = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+      if (!res.ok) throw new Error('Failed');
+      setFormStatus('success');
+      setWaitlistCount(c => c + 1);
+    } catch {
+      setFormStatus('error');
+    }
+  }
 
   return (
     <>
@@ -108,14 +129,48 @@ export default function App() {
           </p>
         </motion.div>
 
-        {/* Klaviyo Email Capture */}
+        {/* Email Capture */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.35, ease: 'easeOut' }}
           className="w-full max-w-md px-2 sm:px-0 mb-10 md:mb-14"
         >
-          <div className="klaviyo-form-WNgWZF"></div>
+          {formStatus === 'success' ? (
+            <motion.div
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="flex flex-col items-center gap-1.5 py-4"
+            >
+              <p className="text-white/80 font-light">You're on the list.</p>
+              <p className="text-white/35 text-sm font-light">We'll be in touch before we open.</p>
+            </motion.div>
+          ) : (
+            <form onSubmit={handleSubmit} className="flex gap-2.5">
+              <input
+                type="email"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+                placeholder="your@email.com"
+                required
+                disabled={formStatus === 'loading'}
+                className="flex-1 min-w-0 px-4 py-3 rounded-xl bg-white/[0.06] border border-white/[0.1] text-white text-sm font-light placeholder:text-white/25 focus:outline-none focus:border-white/25 disabled:opacity-50 transition-colors"
+              />
+              <button
+                type="submit"
+                disabled={formStatus === 'loading'}
+                className="shrink-0 px-5 py-3 rounded-xl bg-white text-black text-sm font-medium disabled:opacity-50 hover:bg-white/90 transition-opacity cursor-pointer"
+              >
+                {formStatus === 'loading' ? '…' : 'Join'}
+              </button>
+            </form>
+          )}
+          {formStatus === 'error' && (
+            <p className="mt-2 text-center text-red-400/70 text-xs font-light">
+              Something went wrong — please try again.
+            </p>
+          )}
         </motion.div>
 
         {/* Divider */}
