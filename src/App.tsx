@@ -123,12 +123,12 @@ export default function App() {
           transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
           className="space-y-3 mb-8 md:mb-10"
         >
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-light text-white/90 leading-snug">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-light text-white/90 leading-tight">
             Cork's Only 5-Bay<br />
             <img
               src="/trackman-logo.png"
               alt="TrackMan"
-              className="inline-block h-52 sm:h-56 md:h-60 w-auto mix-blend-lighten -my-16 sm:-my-20"
+              className="inline-block h-52 sm:h-56 md:h-60 w-auto mix-blend-lighten -my-20 sm:-my-24"
             /><br />
             Facility.
           </h2>
