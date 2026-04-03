@@ -8,10 +8,12 @@ export default async function handler(req: Request): Promise<Response> {
     });
   }
 
-  let email: string;
+  let email: string, firstName: string, lastName: string;
   try {
     const body = await req.json();
     email = body.email;
+    firstName = body.firstName ?? '';
+    lastName = body.lastName ?? '';
   } catch {
     return new Response(JSON.stringify({ error: 'Invalid request body' }), {
       status: 400,
@@ -51,6 +53,8 @@ export default async function handler(req: Request): Promise<Response> {
           subscriptions: [
             {
               email,
+              first_name: firstName,
+              last_name: lastName,
               channels: { email: ['MARKETING'] },
             },
           ],

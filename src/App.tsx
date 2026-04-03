@@ -52,6 +52,8 @@ type FormStatus = 'idle' | 'loading' | 'success' | 'error';
 
 export default function App() {
   const [waitlistCount, setWaitlistCount] = useState(INITIAL_WAITLIST);
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [formStatus, setFormStatus] = useState<FormStatus>('idle');
 
@@ -71,7 +73,7 @@ export default function App() {
       const res = await fetch('/api/subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ firstName, lastName, email }),
       });
       if (!res.ok) throw new Error('Failed');
       setFormStatus('success');
@@ -147,23 +149,45 @@ export default function App() {
               <p className="text-white/35 text-sm font-light">We'll be in touch before we open.</p>
             </motion.div>
           ) : (
-            <form onSubmit={handleSubmit} className="flex gap-2.5">
-              <input
-                type="email"
-                value={email}
-                onChange={e => setEmail(e.target.value)}
-                placeholder="your@email.com"
-                required
-                disabled={formStatus === 'loading'}
-                className="flex-1 min-w-0 px-4 py-3 rounded-xl bg-white/[0.06] border border-white/[0.1] text-white text-sm font-light placeholder:text-white/25 focus:outline-none focus:border-white/25 disabled:opacity-50 transition-colors"
-              />
-              <button
-                type="submit"
-                disabled={formStatus === 'loading'}
-                className="shrink-0 px-5 py-3 rounded-xl bg-white text-black text-sm font-medium disabled:opacity-50 hover:bg-white/90 transition-opacity cursor-pointer"
-              >
-                {formStatus === 'loading' ? '…' : 'Join'}
-              </button>
+            <form onSubmit={handleSubmit} className="flex flex-col gap-2.5">
+              <div className="flex gap-2.5">
+                <input
+                  type="text"
+                  value={firstName}
+                  onChange={e => setFirstName(e.target.value)}
+                  placeholder="First name"
+                  required
+                  disabled={formStatus === 'loading'}
+                  className="flex-1 min-w-0 px-4 py-3 rounded-xl bg-white/[0.06] border border-white/[0.1] text-white text-sm font-light placeholder:text-white/25 focus:outline-none focus:border-white/25 disabled:opacity-50 transition-colors"
+                />
+                <input
+                  type="text"
+                  value={lastName}
+                  onChange={e => setLastName(e.target.value)}
+                  placeholder="Last name"
+                  required
+                  disabled={formStatus === 'loading'}
+                  className="flex-1 min-w-0 px-4 py-3 rounded-xl bg-white/[0.06] border border-white/[0.1] text-white text-sm font-light placeholder:text-white/25 focus:outline-none focus:border-white/25 disabled:opacity-50 transition-colors"
+                />
+              </div>
+              <div className="flex gap-2.5">
+                <input
+                  type="email"
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                  placeholder="your@email.com"
+                  required
+                  disabled={formStatus === 'loading'}
+                  className="flex-1 min-w-0 px-4 py-3 rounded-xl bg-white/[0.06] border border-white/[0.1] text-white text-sm font-light placeholder:text-white/25 focus:outline-none focus:border-white/25 disabled:opacity-50 transition-colors"
+                />
+                <button
+                  type="submit"
+                  disabled={formStatus === 'loading'}
+                  className="shrink-0 px-5 py-3 rounded-xl bg-white text-black text-sm font-medium disabled:opacity-50 hover:bg-white/90 transition-opacity cursor-pointer"
+                >
+                  {formStatus === 'loading' ? '…' : 'Join'}
+                </button>
+              </div>
             </form>
           )}
           {formStatus === 'error' && (
