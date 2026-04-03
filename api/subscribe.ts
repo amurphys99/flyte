@@ -42,22 +42,40 @@ export default async function handler(req: Request): Promise<Response> {
     method: 'POST',
     headers: {
       Authorization: `Klaviyo-API-Key ${privateKey}`,
-      revision: '2024-10-15',
+      revision: '2024-02-15',
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
       data: {
         type: 'profile-subscription-bulk-create-job',
         attributes: {
-          list_id: listId,
-          subscriptions: [
-            {
-              email,
-              first_name: firstName,
-              last_name: lastName,
-              channels: { email: ['MARKETING'] },
+          profiles: {
+            data: [
+              {
+                type: 'profile',
+                attributes: {
+                  email,
+                  first_name: firstName,
+                  last_name: lastName,
+                  subscriptions: {
+                    email: {
+                      marketing: {
+                        consent: 'SUBSCRIBED',
+                      },
+                    },
+                  },
+                },
+              },
+            ],
+          },
+        },
+        relationships: {
+          list: {
+            data: {
+              type: 'list',
+              id: listId,
             },
-          ],
+          },
         },
       },
     }),
