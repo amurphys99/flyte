@@ -5,13 +5,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { ArrowRight, CheckCircle2, AlertCircle, Mail, Tag, Clock, Zap, Users } from 'lucide-react';
-
-const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*\.[a-zA-Z]{2,}$/;
-
-function isValidEmail(value: string): boolean {
-  return EMAIL_REGEX.test(value.trim());
-}
+import { Tag, Clock, Zap, Users } from 'lucide-react';
 
 const TOTAL_SPOTS = 100;
 const INITIAL_CLAIMED = 68;
@@ -55,10 +49,6 @@ const backgroundGradients = (
 );
 
 export default function App() {
-  const [email, setEmail] = useState('');
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
   const [waitlistCount, setWaitlistCount] = useState(INITIAL_WAITLIST);
 
   useEffect(() => {
@@ -70,100 +60,8 @@ export default function App() {
     return () => clearInterval(interval);
   }, []);
 
-  const validate = (): boolean => {
-    if (!email.trim()) {
-      setError('Please enter your email address.');
-      return false;
-    }
-    if (!isValidEmail(email)) {
-      setError('Please enter a valid email address.');
-      return false;
-    }
-    return true;
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError(null);
-
-    if (!validate()) return;
-
-    setIsLoading(true);
-
-    try {
-      await fetch('https://services.leadconnectorhq.com/hooks/eGMcJ5uiCn23PTvKzhM6/webhook-trigger/28744af6-11a8-4f7f-924f-661446c5bc38', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email.trim().toLowerCase() }),
-      });
-      setIsSubmitted(true);
-      setEmail('');
-    } catch (err) {
-      console.error('Error saving lead:', err);
-      setError('Something went wrong. Please try again.');
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-    if (error) setError(null);
-  };
-
   return (
     <main className="min-h-screen flex flex-col items-center px-6 relative overflow-x-hidden bg-[#050505]">
-      {/* Thank you modal */}
-      <AnimatePresence>
-        {isSubmitted && (
-          <>
-            <motion.div
-              key="backdrop"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50"
-            />
-            <motion.div
-              key="modal"
-              initial={{ opacity: 0, scale: 0.88, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.92, y: 10 }}
-              transition={{ type: 'spring', stiffness: 220, damping: 22 }}
-              role="dialog"
-              aria-modal="true"
-              aria-labelledby="modal-title"
-              className="fixed inset-0 z-50 flex items-center justify-center px-6"
-            >
-              <div className="bg-[#111] border border-white/15 rounded-[28px] p-10 max-w-sm w-full flex flex-col items-center gap-5 text-center shadow-2xl">
-                <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ delay: 0.1, type: 'spring', stiffness: 200, damping: 15 }}
-                  className="w-16 h-16 rounded-full bg-white/10 flex items-center justify-center"
-                >
-                  <CheckCircle2 className="w-8 h-8 text-white/80" />
-                </motion.div>
-                <div className="space-y-2">
-                  <h3 id="modal-title" className="text-2xl font-light text-white tracking-wide">
-                    You're on the list.
-                  </h3>
-                  <p className="text-white/40 text-sm font-light leading-relaxed">
-                    Your founding member spot is reserved. We'll be in touch with priority booking access and launch details before anyone else.
-                  </p>
-                </div>
-                <button
-                  onClick={() => setIsSubmitted(false)}
-                  className="mt-2 px-6 py-2.5 rounded-full border border-white/15 text-white/50 text-sm font-light hover:border-white/30 hover:text-white/70 transition-all duration-300"
-                >
-                  Close
-                </button>
-              </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
-
       {grainOverlay}
       {backgroundGradients}
 
@@ -203,82 +101,14 @@ export default function App() {
           </p>
         </motion.div>
 
-        {/* Email Capture — above the fold */}
+        {/* Klaviyo Email Capture */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.35, ease: 'easeOut' }}
           className="w-full max-w-md px-2 sm:px-0 mb-10 md:mb-14"
         >
-          <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-3">
-            <div
-              className={`flex flex-col sm:flex-row items-stretch gap-2 p-1.5 bg-white/[0.03] border rounded-[20px] backdrop-blur-md transition-all duration-500 ${
-                error ? 'border-red-400/40' : 'border-white/10 focus-within:border-white/25'
-              }`}
-            >
-              <div className="flex-1 flex items-center gap-2 px-4">
-                <Mail className="w-4 h-4 text-white/20 shrink-0" />
-                <input
-                  type="email"
-                  inputMode="email"
-                  autoComplete="email"
-                  placeholder="Enter your email"
-                  value={email}
-                  onChange={handleEmailChange}
-                  className="flex-1 bg-transparent outline-none text-white placeholder:text-white/20 py-3 text-base font-light min-w-0"
-                  aria-label="Email address"
-                  aria-invalid={!!error}
-                  aria-describedby={error ? 'email-error' : undefined}
-                />
-              </div>
-              <motion.button
-                type="submit"
-                disabled={isLoading}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.97 }}
-                className="bg-white text-black py-3 px-6 rounded-[14px] flex items-center justify-center gap-2 hover:bg-white/90 transition-colors duration-300 disabled:opacity-50 whitespace-nowrap shrink-0 relative overflow-hidden"
-              >
-                {/* Pulse ring */}
-                <motion.span
-                  className="absolute inset-0 rounded-[14px] border border-white/60"
-                  animate={{ scale: [1, 1.12], opacity: [0.5, 0] }}
-                  transition={{ repeat: Infinity, duration: 2, ease: 'easeOut' }}
-                />
-                <span className="text-sm font-medium tracking-wide relative z-10">
-                  {isLoading ? 'Joining...' : 'Claim Your Spot'}
-                </span>
-                {!isLoading ? (
-                  <motion.div
-                    animate={{ x: [0, 3, 0] }}
-                    transition={{ repeat: Infinity, duration: 1.5, ease: 'easeInOut' }}
-                    className="relative z-10"
-                  >
-                    <ArrowRight className="w-4 h-4" />
-                  </motion.div>
-                ) : null}
-              </motion.button>
-            </div>
-
-            <AnimatePresence>
-              {error && (
-                <motion.p
-                  id="email-error"
-                  role="alert"
-                  initial={{ opacity: 0, y: -6 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -6 }}
-                  className="text-red-400/70 text-xs flex items-center gap-1.5 justify-center"
-                >
-                  <AlertCircle className="w-3.5 h-3.5 shrink-0" />
-                  {error}
-                </motion.p>
-              )}
-            </AnimatePresence>
-
-            <p className="text-white/20 text-xs font-light text-center leading-relaxed pt-1">
-              We'll only use your email to keep you updated. No spam, ever.
-            </p>
-          </form>
+          <div className="klaviyo-form-WNgWZF"></div>
         </motion.div>
 
         {/* Divider */}
