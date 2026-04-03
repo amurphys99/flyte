@@ -124,7 +124,12 @@ export default function App() {
           className="space-y-3 mb-8 md:mb-10"
         >
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-light text-white/90 leading-snug">
-            Cork's Only 5-Bay<br />TrackMan Facility.
+            Cork's Only 5-Bay<br />
+            <img
+              src="/trackman-logo.png"
+              alt="TrackMan"
+              className="inline-block h-8 sm:h-10 md:h-12 w-auto align-middle"
+            />{' '}Facility.
           </h2>
           <p className="text-base sm:text-lg text-white/50 font-light leading-relaxed max-w-md mx-auto">
             Play on tour-grade technology — five simulators, one world-class venue. Coming soon to Cork City.
