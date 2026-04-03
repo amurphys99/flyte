@@ -240,9 +240,10 @@ export default function App() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1, delay: 1 }}
-        className="pb-10 text-white/20 text-xs tracking-[0.2em] uppercase font-light z-10"
+        className="pb-10 flex items-center gap-6 text-white/20 text-xs tracking-[0.2em] uppercase font-light z-10"
       >
-        © Flyte Golf
+        <span>© Flyte Golf</span>
+        <a href="/privacy" className="hover:text-white/40 transition-colors">Privacy Policy</a>
       </motion.footer>
     </main>
     </>
