@@ -66,10 +66,21 @@ export default function App() {
     return () => clearInterval(interval);
   }, []);
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setFormStatus('success');
-    setWaitlistCount(c => c + 1);
+    setFormStatus('loading');
+    try {
+      const res = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ firstName, lastName, email }),
+      });
+      if (!res.ok) throw new Error('Failed');
+      setFormStatus('success');
+      setWaitlistCount(c => c + 1);
+    } catch {
+      setFormStatus('error');
+    }
   }
 
   return (
