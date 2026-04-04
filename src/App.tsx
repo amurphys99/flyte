@@ -104,7 +104,7 @@ export default function App() {
           transition={{ duration: 0.9, ease: 'easeOut' }}
           className="mb-6 md:mb-8"
         >
-          <h1 className="text-6xl sm:text-7xl md:text-8xl font-light tracking-[0.3em] text-white uppercase">
+          <h1 className="text-6xl sm:text-7xl md:text-8xl font-light tracking-[0.3em] pl-[0.3em] text-white uppercase">
             Flyte
             <span className="sr-only"> Golf — TrackMan Golf Simulator, Cork City</span>
           </h1>
