@@ -28,7 +28,6 @@ export default function PrivacyPolicy() {
               indoor golf simulator facility in Cork City, Ireland.
             </p>
             <p className="mt-3">
-              <span className="text-white/50">Address:</span> Unit K1A, Marina Commercial Park, Cork, T12WY83, Ireland<br />
               <span className="text-white/50">Email:</span>{' '}
               <a href="mailto:info@flytegolf.ie" className="text-white/60 hover:text-white/80 transition-colors">
                 info@flytegolf.ie
